@@ -1,0 +1,11 @@
+package pl.coderslab.handyman.repository;
+
+import pl.coderslab.handyman.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
+
+    User findById(int id);
+}
