@@ -6,10 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.handyman.entity.OrderUser;
 import pl.coderslab.handyman.entity.User;
+import pl.coderslab.handyman.repository.OrderUserRepository;
 import pl.coderslab.handyman.repository.UserRepository;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 @SessionAttributes("logged")
@@ -17,11 +22,20 @@ import javax.validation.Valid;
 public class UserController {
 
     private UserRepository userRepository;
+    private OrderUserRepository orderUserRepository;
 
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, OrderUserRepository orderUserRepository) {
 
         this.userRepository = userRepository;
+        this.orderUserRepository = orderUserRepository;
 
+    }
+
+    @ModelAttribute("orders")
+    public List<OrderUser> getAllOrderUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = this.userRepository.findByEmail(auth.getName());
+        return this.orderUserRepository.findByUser(user);
     }
 
     @GetMapping("/logon")
@@ -29,7 +43,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = this.userRepository.findByEmail(auth.getName());
         model.addAttribute("logged", user);
-        return "forms/user/logon";
+        return  "forms/user/logon";
     }
 
     @GetMapping("/profile")
@@ -41,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editUserForm(@PathVariable int id, Model model) {
+    public String editUserForm(@PathVariable Long id, Model model) {
         model.addAttribute("logged", this.userRepository.findById(id));
         return "forms/user/user";
     }
@@ -54,5 +68,7 @@ public class UserController {
         this.userRepository.save(user);
         return "redirect:/user/profile";
     }
+
+    
 
 }

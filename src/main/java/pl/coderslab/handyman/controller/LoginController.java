@@ -26,13 +26,11 @@ public class LoginController {
         return "/logout";
     }
 
-
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String register(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "forms/register";
-
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)

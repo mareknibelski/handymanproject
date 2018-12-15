@@ -26,8 +26,10 @@ public class OrderUser {
     private String orderText;
 
     private LocalDateTime time;
-//    @ManyToOne
-//    private User user;
-//    @ManyToOne
-//    private Handyman handyman;
+    @Column(precision = 10, scale = 2)
+    private double price;
+    @ManyToOne
+    private User user;
+    @ManyToOne
+    private Handyman handyman;
 }

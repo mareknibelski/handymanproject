@@ -10,14 +10,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>LOGIN</title>
+    <title>Rejestracja</title>
 </head>
 <body>
-    <h1>Zaloguj się</h1>
-    <form action="/login" method="post">
-        <input type="text" id="username" name="email" placeholder="email" /><br>
-        <input type="password" id="password" name="password" placeholder="password" /></br>
-        <input type="submit" value="Zaloguj się">
-    </form>
+    Administrator ${admin.name} ${admin.lastName} zarejestrował się w naszej bazie.<br>
+    Przejdz do strony logowania
+    <a href="/login">Zaloguj sie</a>
 </body>
 </html>

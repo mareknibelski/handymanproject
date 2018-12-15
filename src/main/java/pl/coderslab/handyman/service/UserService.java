@@ -17,15 +17,17 @@ import java.util.HashSet;
 public class UserService {
 
     private UserRepository userRepository;
+    private HandymanRepository handymanRepository;
     private RoleRepository roleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-//    private HandymanRepository handymanRepository;
 
     @Autowired
     public UserService(UserRepository userRepository,
+                       HandymanRepository handymanRepository,
                        RoleRepository roleRepository,
                        BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.handymanRepository = handymanRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -42,24 +44,24 @@ public class UserService {
         return userRepository.save(user);
     }
 
-//    public User saveAdmin(User user) {
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//        user.setActive(1);
-//        Role userRole = roleRepository.findByRole("ADMIN");
-//        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-//        return userRepository.save(user);
-//    }
-//
-//    public Handyman findHandymanByEmail(String email) {
-//        return handymanRepository.findByEmail(email);
-//    }
-//
-//    public Handyman saveHandyman(Handyman handyman) {
-//        handyman.setPassword(bCryptPasswordEncoder.encode(handyman.getPassword()));
-//        handyman.setActive(1);
-//        Role handymanRole = roleRepository.findByRole("HANDYMAN");
-//        handyman.setRoles(new HashSet<Role>(Arrays.asList(handymanRole)));
-//        return handymanRepository.save(handyman);
-//    }
+    public User saveAdmin(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1);
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        return userRepository.save(user);
+    }
+
+    public Handyman findHandymanByEmail(String email) {
+        return handymanRepository.findByEmail(email);
+    }
+
+    public Handyman saveHandyman(Handyman handyman) {
+        handyman.setPassword(bCryptPasswordEncoder.encode(handyman.getPassword()));
+        handyman.setActive(1);
+        Role handymanRole = roleRepository.findByRole("HANDYMAN");
+        handyman.setRoles(new HashSet<Role>(Arrays.asList(handymanRole)));
+        return handymanRepository.save(handyman);
+    }
 
 }

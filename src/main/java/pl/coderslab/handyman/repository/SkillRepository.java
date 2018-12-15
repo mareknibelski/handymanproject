@@ -5,5 +5,6 @@ import pl.coderslab.handyman.entity.Skill;
 
 public interface SkillRepository extends JpaRepository<Skill, Long> {
 
+//    Skill findById(Long id);
 
 }

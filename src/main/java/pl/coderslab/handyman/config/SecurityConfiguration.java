@@ -3,6 +3,7 @@ package pl.coderslab.handyman.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -39,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
+
 //
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -50,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated()
                 .antMatchers("/user/**").hasAnyAuthority("ADMIN","USER").anyRequest().authenticated()
+                .antMatchers("/handyman/**").hasAuthority("HANDYMAN").anyRequest().authenticated()
                 .and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
                 .defaultSuccessUrl("/user/logon")
@@ -60,111 +63,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/").and().exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }
-
-
-//    @Configuration
-//    @Order(1)
-//    public static class App1ConfigurationAdapter extends WebSecurityConfigurerAdapter {
-//        public App1ConfigurationAdapter() {
-//            super();
-//        }
-//
-//        @Autowired
-//        private BCryptPasswordEncoder bCryptPasswordEncoder;
-//
-//        @Autowired
-//        private DataSource dataSource;
-//
-//        @Value("${spring.queries.users-query}")
-//        private String usersQuery;
-//
-//        @Value("${spring.queries.roles-query}")
-//        private String rolesQuery;
-//
-//        @Override
-//        protected void configure(AuthenticationManagerBuilder auth)
-//                throws Exception {
-//            auth.
-//                    jdbcAuthentication()
-//                    .usersByUsernameQuery(usersQuery)
-//                    .authoritiesByUsernameQuery(rolesQuery)
-//                    .dataSource(dataSource)
-//                    .passwordEncoder(bCryptPasswordEncoder);
-//        }
-//
-//        @Override
-//        protected void configure(HttpSecurity http) throws Exception {
-//            http.
-//                authorizeRequests()
-//                .antMatchers("/admin").hasAuthority("ADMIN").anyRequest().authenticated()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/registration").permitAll()
-//                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated()
-//                .antMatchers("/user/**").hasAnyAuthority("ADMIN","USER").anyRequest().authenticated()
-//                .and().csrf().disable().formLogin()
-//                .loginPage("/admin").failureUrl("/admin?error=true")
-//                .defaultSuccessUrl("/admin/logon")
-//                .usernameParameter("email")
-//                .passwordParameter("password")
-//                .and().logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/").and().exceptionHandling()
-//                .accessDeniedPage("/access-denied");
-//        }
-//    }
-//
-//    @Configuration
-//    @Order(2)
-//    public static class App2ConfigurationAdapter extends WebSecurityConfigurerAdapter {
-//
-//        public App2ConfigurationAdapter() {
-//            super();
-//        }
-//
-//        @Autowired
-//        private BCryptPasswordEncoder bCryptPasswordEncoder;
-//
-//        @Autowired
-//        private DataSource dataSource;
-//
-//        @Value("${spring.queries.users-query}")
-//        private String usersQuery;
-//
-//        @Value("${spring.queries.roles-query}")
-//        private String rolesQuery;
-//
-//        @Override
-//        protected void configure(AuthenticationManagerBuilder auth)
-//                throws Exception {
-//            auth.
-//                    jdbcAuthentication()
-//                    .usersByUsernameQuery(usersQuery)
-//                    .authoritiesByUsernameQuery(rolesQuery)
-//                    .dataSource(dataSource)
-//                    .passwordEncoder(bCryptPasswordEncoder);
-//        }
-//
-//        protected void configure(HttpSecurity http) throws Exception {
-//            http.
-//                authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/registration").permitAll()
-//                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated()
-//                .antMatchers("/user/**").hasAuthority("USER").anyRequest().authenticated()
-//                .and().csrf().disable().formLogin()
-//                .loginPage("/login").failureUrl("/login?error=true")
-//                .defaultSuccessUrl("/user/logon")
-//                .usernameParameter("email")
-//                .passwordParameter("password")
-//                .and().logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/").and().exceptionHandling()
-//                .accessDeniedPage("/access-denied");
-//
-//        }
-//    }
-
 
 //  /login?error=true
     @Override
