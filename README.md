@@ -14,24 +14,35 @@ Technologies:
 - JPA
 
 Features:
+
 User:
--user registration
+
+- user registration
+
 The user sees several available functions after logging in:
--profile view
--profile edition
--adding the order
--editing the order
--offer preview
+
+- profile view
+- profile edition
+- adding the order
+- editing the order
+- offer preview
+
 Handyman:
+
 The handyman sees several functions available:
+
 - profile view
 - profile editions
 - view all your offers
 - issuing an offer
 - offer edition
+
 Admin:
+
 - administrator registration
+
 The administrator sees several available functions after logging in:
+
 - profile view
 - profile editions
 - adding skills
