@@ -54,3 +54,5 @@ Future features:
 - adding comments of completed orders
 - notifications about the order issued for handymans with a specific skill
 - adding a rental shop
+- handyman registration
+- handyman login
