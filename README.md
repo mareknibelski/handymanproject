@@ -56,3 +56,4 @@ Future features:
 - adding a rental shop
 - handyman registration
 - handyman login
+- adding front-end
