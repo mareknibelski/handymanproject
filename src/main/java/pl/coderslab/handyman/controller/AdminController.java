@@ -67,13 +67,13 @@ public class AdminController {
         User userExists = userService.findUserByEmail(admin.getEmail());
         if (userExists != null) {
             result.rejectValue("email", "error.user",
-                    "Użytkownik o podanym adresie e-mail już istnieje.");
+                    "Administrator o podanym adresie e-mail już istnieje.");
         }
         if(result.hasErrors()) {
             return "forms/admin/register";
         } else {
             userService.saveAdmin(admin);
-            model.addAttribute("successMessage", "Użytkownik zarejestrowny.");
+            model.addAttribute("successMessage", "Administrator zarejestrowny.");
 
             return "forms/admin/registersucces";
         }

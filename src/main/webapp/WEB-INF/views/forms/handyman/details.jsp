@@ -24,6 +24,7 @@
     <br />
     <a href="/handyman/edit/${handyman.id}">Edytuj</a><br />
     <a href="/handyman/orders">Zobacz wszystkie dostępne zlecenia</a><br />
+    <a href="/handyman/orders/skills">Zobacz wszystkie dostępne zlecenia wg umiejętności którymi dysponuje złota rączka</a><br />
 
 </body>
 </html>

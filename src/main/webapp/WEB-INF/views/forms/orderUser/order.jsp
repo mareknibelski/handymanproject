@@ -19,6 +19,7 @@
         Tytuł zlecenia: <form:input path="title" /><form:errors path="title" /><br />
         Treść zlecenia: <from:textarea path="orderText" rows="3" cols="120" /><form:errors path="orderText" /><br />
         Proponowana cena za wykonanie zlecenia: <form:input path="price" /> zł<form:errors path="price" /><br />
+        Potrzebne umiejętności do wykonania zlecenia: <form:select path="skills" items="${skills}" itemValue="id" itemLabel="name"/><br />
         <form:hidden path="id" />
         <input type="submit" value="Wystaw zlecenie">
     </form:form>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: marczan
@@ -16,6 +17,9 @@
     Treść zlecenia: ${order.get().orderText}<br />
     Data wystawienie zlecenia: ${order.get().time}<br />
     Proponowana cena za wykonanie zlecenia: ${order.get().price} zł<br />
+    Potrzebne umiejętności do wykonania zlecenia: <c:forEach items="${order.get().skills}" var="skill">
+                                                        ${skill.name}<br />
+                                                    </c:forEach>
     <br />
     <br />
     <a href="/user/order/edit/${order.get().id}">Edytuj zlecenie</a> <a href="/user/logon">Wróć do strony głównej</a>

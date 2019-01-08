@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.handyman.entity.OrderUser;
+import pl.coderslab.handyman.entity.Skill;
 import pl.coderslab.handyman.entity.User;
 import pl.coderslab.handyman.repository.OrderUserRepository;
+import pl.coderslab.handyman.repository.SkillRepository;
 import pl.coderslab.handyman.repository.UserRepository;
 
 import javax.validation.Valid;
@@ -21,11 +23,14 @@ public class OrderUserController {
 
     private OrderUserRepository orderUserRepository;
     private UserRepository userRepository;
+    private SkillRepository skillRepository;
 
     @Autowired
-    public OrderUserController(OrderUserRepository orderUserRepository, UserRepository userRepository) {
+    public OrderUserController(OrderUserRepository orderUserRepository, UserRepository userRepository,
+                               SkillRepository skillRepository) {
         this.orderUserRepository = orderUserRepository;
         this.userRepository = userRepository;
+        this.skillRepository = skillRepository;
     }
 
     @ModelAttribute("orders")
@@ -33,6 +38,11 @@ public class OrderUserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = this.userRepository.findByEmail(auth.getName());
         return this.orderUserRepository.findByUser(user);
+    }
+
+    @ModelAttribute("skills")
+    public List<Skill> getAllSkills() {
+        return this.skillRepository.findAll();
     }
 
     @GetMapping("/user/order/add")
@@ -66,6 +76,13 @@ public class OrderUserController {
         List<OrderUser> orderUsers = this.orderUserRepository.findAll();
         model.addAttribute("orders", orderUsers);
         return "forms/orderUser/orders";
+    }
+
+    @GetMapping("/handyman/orders/skills")
+    public String getOrderUserWithSkills(@ModelAttribute Skill skill, Model model) {
+        List<OrderUser> orderUserListSkill = this.orderUserRepository.findOrderUserBySkills(skill.getId());
+        model.addAttribute("skills", orderUserListSkill);
+        return "forms/orderUser/orderSkill";
     }
 
     @GetMapping("/user/order/{id}/details")
