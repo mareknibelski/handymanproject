@@ -27,7 +27,7 @@
             <td>${order.time}</td>
             <td>${order.price} zł</td>
             Potrzebne umiejętności do wykonania zlecenia: <c:forEach items="${order.skills}" var="skill">
-                                                                ${skill.name}<br />
+                                                                 ${skill.name}<br />
                                                             </c:forEach>
             <td>
                 <a href="/handyman/order/${order.id}/details">Szczegóły</a>
